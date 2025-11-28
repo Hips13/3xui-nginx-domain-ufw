@@ -4,6 +4,7 @@
 RED="\e[31m"; GREEN="\e[32m"; YELLOW="\e[33m"; BLUE="\e[34m"; CYAN="\e[36m"; RESET="\e[0m"
 
 clear
+apt update -y && apt upgrade -y
 echo -e "${CYAN}Проверка root...${RESET}"
 if [[ $EUID -ne 0 ]]; then
     echo -e "${RED}Ошибка: скрипт должен быть запущен от root.${RESET}"
