@@ -263,7 +263,7 @@ EOF
     sed -i "/^COMMIT/i $ICMP_RULES" /etc/ufw/before.rules
 
     ufw --force enable
-    ufw restart # Применяем изменения в before.rules
+    ufw reload # Применяем изменения в before.rules
     echo -e "${GREEN}UFW настроен и включен.${RESET}"
 fi
 
