@@ -51,8 +51,8 @@ if [[ "$SECURITY_LEVEL" == "1" || "$SECURITY_LEVEL" == "2" || "$SECURITY_LEVEL" 
     echo "$SSH_KEY" > /root/.ssh/authorized_keys
     chmod 600 /root/.ssh/authorized_keys
 
-    systemctl reload ssh || true
-    systemctl reload sshd || true
+    systemctl restart ssh || true
+    systemctl restart sshd || true
 
     echo -e "${GREEN}SSH настроен${RESET}"
 fi
@@ -263,7 +263,7 @@ EOF
     sed -i "/^COMMIT/i $ICMP_RULES" /etc/ufw/before.rules
 
     ufw --force enable
-    ufw reload # Применяем изменения в before.rules
+    ufw restart # Применяем изменения в before.rules
     echo -e "${GREEN}UFW настроен и включен.${RESET}"
 fi
 
