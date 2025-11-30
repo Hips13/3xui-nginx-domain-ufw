@@ -126,7 +126,7 @@ sed -i '/listen \[::\]:80 default_server;/d' /etc/nginx/sites-enabled/default
 
 # Добавляем файл-заглушку
 wget https://raw.githubusercontent.com/Hips13/3xui-nginx-domain-ufw/main/site/index.html -O /var/www/html/index.html
-systemctl reload nginx
+systemctl restart nginx
 
 # ---
 
