@@ -57,8 +57,6 @@ if [[ "$SECURITY_LEVEL" == "1" || "$SECURITY_LEVEL" == "2" || "$SECURITY_LEVEL" 
     echo -e "${GREEN}SSH настроен${RESET}"
 fi
 
----
-
 # === Установка 3x-ui и извлечение данных ===
 echo -e "${CYAN}Устанавливаю 3x-ui...${RESET}"
 PANEL_OUTPUT=$(printf 'n' | bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh))
@@ -113,8 +111,6 @@ echo -e "${GREEN}Настройка SSL и BBR завершена${RESET}"
 echo -e "${YELLOW}Нажмите Enter для продолжения...${RESET}"
 read
 
-# ---
-
 # === Установка nginx ===
 echo -e "${CYAN}Обновляю список пакетов и устанавливаю nginx...${RESET}"
 apt update && apt install -y nginx
@@ -127,8 +123,6 @@ sed -i '/listen \[::\]:80 default_server;/d' /etc/nginx/sites-enabled/default
 # Добавляем файл-заглушку
 wget https://raw.githubusercontent.com/Hips13/3xui-nginx-domain-ufw/main/site/index.html -O /var/www/html/index.html
 systemctl restart nginx
-
-# ---
 
 # === Инструкции пользователю (Ручная настройка Inbound) ===
 echo -e "\n${CYAN}--- ИНСТРУКЦИИ ДЛЯ РУЧНОЙ НАСТРОЙКИ 3X-UI ---${RESET}"
@@ -205,8 +199,6 @@ if [[ "$SECURITY_LEVEL" == "2" || "$SECURITY_LEVEL" == "3" || "$SECURITY_LEVEL" 
     read -r SUBSCRIPTION_ENABLED
 fi
 
-# ---
-
 # === Проверка и установка UFW (Уровни 2, 3) ===
 if [[ "$SECURITY_LEVEL" == "2" || "$SECURITY_LEVEL" == "3" ]]; then
     
@@ -267,8 +259,6 @@ EOF
     echo -e "${GREEN}UFW настроен и включен.${RESET}"
 fi
 
-# ---
-
 # === Cron fix ===
 echo -e "${CYAN}Применяю фикс для обновления сертификатов ACME.SH через Cron...${RESET}"
 # Используем $DOMAIN в команде cron для явного указания домена при обновлении
@@ -277,8 +267,6 @@ CRON_COMMAND="52 9 * * * ufw allow 80/tcp && \"/root/.acme.sh\"/acme.sh --cron -
 (crontab -l 2>/dev/null | grep -v 'acme.sh --cron'; echo "$CRON_COMMAND") | crontab -
 
 echo -e "${GREEN}Cron-задача обновлена.${RESET}"
-
-# ---
 
 # === Заключительные инструкции ===
 clear
